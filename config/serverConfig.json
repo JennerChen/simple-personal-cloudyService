@@ -1,3 +1,16 @@
 {
-  "port": 4567
+  "port": 4567,
+  "session":{
+    "secret":"OxTNiiS9PjlWIDD1KEgU71ZjZQHNxh",
+    "cookie":{
+      "maxAge":720000
+    },
+    "saveUninitialized":false,
+    "resave":true
+  },
+  "user":{
+    "name":"admin",
+    "nickname":"懒人的云",
+    "password":"123"
+  }
 }
