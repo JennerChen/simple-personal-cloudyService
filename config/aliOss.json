@@ -1,0 +1,20 @@
+{
+  "AccessKeyId": "RmEWi0LcVJtbFxP8",
+  "AccessKeySecret": "MY1mbYrEWqgM5TXd1pwLJsrfciXP9m",
+  "RoleArn": "1982145644683301",
+  "TokenExpireTime": "900",
+  "policy": {
+	"Statement": [
+	  {
+		"Action": [
+		  "oss:*"
+		],
+		"Effect": "Allow",
+		"Resource": [
+		  "acs:oss:*:*:*"
+		]
+	  }
+	],
+	"Version": "1"
+  }
+}
