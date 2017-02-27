@@ -1,16 +1,19 @@
-import React from 'react'
+import React from 'react';
 import ReactDom from "react-dom";
-// import App from "./app.js";
-// import '../css/app.css';
-// import appStore from './store';
-import {Provider} from 'react-redux';
-import {Router, Route, hashHistory} from "react-router";
-import axios from 'axios';
-import appStore from './store';
-import App from './containers/app';
 
-ReactDom.render(<Provider store={ appStore }>
-	<Router history = { hashHistory }>
-		<Route path="/" component={ App }/>
-	</Router>
-</Provider>, document.getElementById('root'));
+import axios from 'axios';
+
+import appStore from './store';
+import {userLogged} from './actions/userActions';
+import Router from './route';
+import moment from 'moment';
+
+axios.get('/api/user/current').then((d) => {
+	appStore.dispatch(userLogged(d.data.user));
+	
+	ReactDom.render(
+		<Router/>
+		, document.getElementById('root'));
+});
+
+

@@ -1,9 +1,18 @@
 import React from 'react';
+import Login from '../containers/user/login';
+import MenuBar from './menu/menuBar';
+
 class App extends React.Component {
-	
-	render(){
-		const { user } = this.props;
-		return <div>TEST { user ? user.name : "请登录" }</div>
+	render() {
+		const {user, children } = this.props;
+		if (user) {
+			return (<div>
+				<MenuBar/>
+				{ children }
+			</div>)
+		} else {
+			return <Login/>
+		}
 	}
 }
 

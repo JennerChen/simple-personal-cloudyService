@@ -1,0 +1,17 @@
+{
+  "verbose": true,
+  "ignore": [
+	".git",
+	"node_modules/**/node_modules",
+	"src"
+  ],
+  "execMap": {
+	"rb": "ruby",
+	"pde": "processing --sketch={{pwd}} --run"
+  },
+  "watch": [
+	"server",
+	"config"
+  ],
+  "ext": "js json"
+}

@@ -13,7 +13,11 @@ app.use(bodyParser.text());
 
 app.use(session(config.session));
 
-app.use("/user", users);
+app.use("/api/user", users);
+
+app.use('/*', function (req, res) {
+	res.sendFile(path.resolve("index.html"));
+});
 
 app.use('/', function (req, res) {
 	res.sendFile(path.resolve("index.html"));

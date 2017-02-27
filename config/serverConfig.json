@@ -3,7 +3,7 @@
   "session":{
     "secret":"OxTNiiS9PjlWIDD1KEgU71ZjZQHNxh",
     "cookie":{
-      "maxAge":720000
+      "maxAge":86400000
     },
     "saveUninitialized":false,
     "resave":true
