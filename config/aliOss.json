@@ -1,20 +1,6 @@
 {
-  "AccessKeyId": "RmEWi0LcVJtbFxP8",
-  "AccessKeySecret": "MY1mbYrEWqgM5TXd1pwLJsrfciXP9m",
-  "RoleArn": "1982145644683301",
-  "TokenExpireTime": "900",
-  "policy": {
-	"Statement": [
-	  {
-		"Action": [
-		  "oss:*"
-		],
-		"Effect": "Allow",
-		"Resource": [
-		  "acs:oss:*:*:*"
-		]
-	  }
-	],
-	"Version": "1"
-  }
+  "region": "oss-cn-hangzhou",
+  "accessKeyId": "jXpP6UhtfDnWar95",
+  "accessKeySecret": "WaH6P8r03tn0PifBpd3Qo5hJ5CLD4X",
+  "bucket": "aliossdemo"
 }

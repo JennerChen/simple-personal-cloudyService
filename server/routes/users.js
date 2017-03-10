@@ -17,7 +17,6 @@ router.post("/login", function (req, res) {
 			name: config.user.name,
 			nickname: config.user.nickname
 		};
-		console.log(req.session, new Date().toLocaleString())
 	} else {
 		message = "账号密码错误";
 	}

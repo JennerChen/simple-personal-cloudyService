@@ -1,29 +1,34 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import {Link } from 'react-router';
+import {Link} from 'react-router';
 import Radium from 'radium';
 const style = {
-	cloudDisk:{
-		textDecoration:'none',
-		display:'inline-block',
-		width:"100%",
+	cloudDisk: {
+		textDecoration: 'none',
+		display: 'inline-block',
+		width: "100%"
+	},
+	linkText:{
+		lineHeight:"45px",
+		fontSize: "16px",
+		paddingLeft:"15px",
+		letterSpacing:"5px",
 		':hover':{
-			color:'pink'
+			fontWeight: 'bold'
 		}
 	},
-	activeLink:{
-		backgroundColor:'rgb(0, 188, 212)'
+	activeLink: {
+		backgroundColor: 'rgb(0, 188, 212)',
+		color: 'white'
 	}
 };
+
 @Radium
 class MenuBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: 'abc',
 			slideMenuOpen: false
 		};
 		this.openSideMenu = this.openSideMenu.bind(this);
@@ -45,23 +50,21 @@ class MenuBar extends React.Component {
 	render() {
 		return <div>
 			<AppBar
-				title={ this.state.name }
+				title={ "欢迎: "+this.props.user.nickname }
 				iconClassNameRight="muidocs-icon-navigation-expand-more"
 				onLeftIconButtonTouchTap={ this.openSideMenu }
 			/>
-			<div style={ [style.cloudDisk] }>为什么没有用？？？</div>
 			<Drawer
 				docked={false}
 				width={200}
 				open={this.state.slideMenuOpen }
 				onRequestChange={(slideMenuOpen) => this.setState({slideMenuOpen})}
 			>
-				<MenuItem onTouchTap={this.closeSideMenu}>
-					<Link to="/file" style={ [style.cloudDisk] }>
-						云盘
-					</Link>
-				</MenuItem>
-				<MenuItem onTouchTap={this.closeSideMenu}>Menu Item 2</MenuItem>
+				<Link to="/file" onTouchTap={this.closeSideMenu} style={ style.cloudDisk }
+				      activeStyle={ style.activeLink  }>
+					<span style={ [style.linkText] }>云盘</span>
+				</Link>
+				{/*<MenuItem onTouchTap={this.closeSideMenu}>Menu Item 2</MenuItem>*/}
 			</Drawer>
 		</div>
 	}

@@ -44,11 +44,19 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.css$/,
+				test: [/\.pcss/,/\.css/],
 				use: [
 					'style-loader',
 					'css-loader?importLoaders=1',
 					'postcss-loader'
+				]
+			},{
+				test:[/\.less/],
+				use:[
+					'style-loader',
+					'css-loader?importLoaders=1',
+					'postcss-loader',
+					'less-loader'
 				]
 			}
 		]

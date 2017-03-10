@@ -150,9 +150,7 @@ class Login extends React.Component {
 		this.state = {
 			open: true
 		};
-		
 	}
-	
 	renderLayer() {
 		return <LoginForm { ...this.props } />
 	}

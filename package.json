@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --progress",
     "server": "node ./server/server.js",
-    "devServer": "nodemon ./server/server.js",
+    "devServer": "nodemon --debug ./server/server.js",
     "build-app": "webpack --optimize-minimize --progress --define process.env.NODE_ENV=\"'production'\""
   },
   "repository": {
@@ -33,23 +33,36 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-1": "^6.22.0",
     "chunk-manifest-webpack-plugin": "^1.0.0",
+    "co": "^4.6.0",
     "css-loader": "^0.26.1",
     "eslint": "^3.12.0",
     "eslint-plugin-react": "^6.8.0",
     "express": "^4.14.0",
     "nodemon": "^1.11.0",
     "postcss-loader": "^1.2.2",
+    "precss": "^1.4.0",
     "redux-devtools": "^3.3.1",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-manifest-plugin": "^1.1.0"
   },
   "dependencies": {
+    "ali-oss": "^4.8.0",
+    "autoprefixer": "^6.7.6",
     "axios": "^0.15.3",
     "body-parser": "^1.16.1",
     "express-session": "^1.15.1",
+    "immutable": "^3.8.1",
+    "less": "^2.7.2",
+    "less-loader": "^3.0.0",
+    "lost": "^8.0.0",
     "material-ui": "^0.17.0",
     "moment": "^2.17.1",
+    "node-sass": "^4.5.0",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-scss": "^0.4.1",
+    "postcss-use": "^2.3.0",
+    "postcss-utilities": "^0.7.0",
     "radium": "^0.18.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
@@ -59,6 +72,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.8.0",
     "redux-thunk": "^2.2.0",
+    "sass-loader": "^6.0.2",
     "underscore": "^1.8.3"
   }
 }

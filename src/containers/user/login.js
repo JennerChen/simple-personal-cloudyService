@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import Login from '../../components/user/login';
 import * as actions from '../../actions/userActions';
 import axios from 'axios';
+import {browserHistory} from 'react-router';
 const mapStateToProps = (store)=>{
 	return {
 		logging: store.user.logging,
@@ -18,6 +19,9 @@ const mapDispatchToProps = (dispatch)=>{
 				password
 			}).then((d)=>{
 				dispatch(actions.userLogComplete( d.data.login ? d.data.user : null ));
+				if (d.data.login){
+					browserHistory.push('/file');
+				}
 			})
 			
 		},
