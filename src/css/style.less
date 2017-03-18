@@ -1,15 +1,11 @@
-body{
-    background:#efefef;
-    .dirLink{
-        text-decoration: none;
-        color:pink;
+.clearfix {
+    &:before {
+        content: '';
+        display: table;
+    }
+    &:after {
+        content: '';
+        clear: both;
+        display: table;
     }
 }
-
-.grid-3{
-    lost-center: 980px;
-    .col-3{
-        lost-column: 1/3;
-    }
-}
-

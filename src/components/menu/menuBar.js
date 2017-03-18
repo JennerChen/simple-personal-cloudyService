@@ -48,6 +48,7 @@ class MenuBar extends React.Component {
 	}
 	
 	render() {
+		console.log(React);
 		return <div>
 			<AppBar
 				title={ "欢迎: "+this.props.user.nickname }
@@ -64,7 +65,6 @@ class MenuBar extends React.Component {
 				      activeStyle={ style.activeLink  }>
 					<span style={ [style.linkText] }>云盘</span>
 				</Link>
-				{/*<MenuItem onTouchTap={this.closeSideMenu}>Menu Item 2</MenuItem>*/}
 			</Drawer>
 		</div>
 	}

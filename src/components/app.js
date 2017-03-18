@@ -1,14 +1,23 @@
 import React from 'react';
-import MenuBar from '../containers/menu/menuBar';
+import Radium from 'radium';
+import cssUtil from '../css/cssUtil';
+import DropDown from "./basic/dropdown";
 
+@Radium
 class App extends React.Component {
 	render() {
-		const { children } = this.props;
-		return (<div>
-			<MenuBar />
+		const {children} = this.props;
+		const options = [{
+			value: "A",
+			text: "字母A"
+		}, {
+			value: "B",
+			text: "字母B"
+		}];
+		return (<div className="clearfix">
+			<DropDown options={ options } onChange={(selected) => console.log(selected) }/>
 			{ children }
 		</div>);
 	}
 }
-
 export default App;

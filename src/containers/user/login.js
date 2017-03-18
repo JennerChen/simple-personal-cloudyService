@@ -23,7 +23,6 @@ const mapDispatchToProps = (dispatch)=>{
 					browserHistory.push('/file');
 				}
 			})
-			
 		},
 		onMessageShown:()=>{
 			dispatch(actions.userLoginMessageShown())
