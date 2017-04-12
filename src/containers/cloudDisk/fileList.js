@@ -1,28 +1,34 @@
-import axios from 'axios';
 import {connect} from 'react-redux';
-import CloudFiles from '../../components/cloudDisk/cloudFiles';
-import * as fileActions from '../../actions/cloudDisk/fileListActions';
+import FileList from '../../components/cloudDisk/fileList';
+import {getDownloadUrl, deleteFile, fetchFiles} from '../../actions/cloudDisk/fileListActions';
 const mapStateToProps = (store) => {
 	return {
-		files: store.fileList.files
+		folds: store.fileList.files ? store.fileList.files.folds : [],
+		files: store.fileList.files ? store.fileList.files.fileList : []
 	}
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getFiles(dir = null){
-			dispatch(fileActions.startFetchFileList());
-			axios.get("/api/file/files" + (dir ? ("/" + dir) : "")).then((res) => {
-				dispatch(fileActions.completeFetchFileList({
-					dir,
-					folds: res.data.dirFolds,
-					fileList: res.data.dirFiles
-				}));
-			}).catch((err) => {
-				dispatch(fileActions.errorFetchFileList());
-			})
+		getFiles(dir = "/"){
+			dispatch(fetchFiles(dir));
+		},
+		getDownloadUrl(fileKey, etag){
+			dispatch(getDownloadUrl(fileKey, etag));
+		},
+		saveFile(url){
+			const link = document.createElement("a");
+			link.target="_blank";
+			link.download = "";
+			link.href = url;
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		},
+		deleteFile(fileKey){
+			dispatch(deleteFile(fileKey));
 		}
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CloudFiles);
+export default connect(mapStateToProps, mapDispatchToProps)(FileList);

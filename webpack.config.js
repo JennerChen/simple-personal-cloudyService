@@ -12,7 +12,7 @@ module.exports = {
 // 		filename: './static/js/bundle.js'
 	},
 	watch: true,
-	devtool: "cheap-module-eval-source-map",
+	devtool: "inline-source-map",
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
 			name: ["vendor","manifest"],

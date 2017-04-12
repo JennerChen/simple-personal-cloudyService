@@ -1,23 +1,31 @@
 import React from 'react';
 import Radium from 'radium';
-import cssUtil from '../css/cssUtil';
-import DropDown from "./basic/dropdown";
+import { Menu, Icon } from 'antd';
+import {Link} from 'react-router';
+
+import { Layout } from 'antd';
+const { Header, Sider, Content } = Layout;
 
 @Radium
 class App extends React.Component {
 	render() {
 		const {children} = this.props;
-		const options = [{
-			value: "A",
-			text: "字母A"
-		}, {
-			value: "B",
-			text: "字母B"
-		}];
-		return (<div className="clearfix">
-			<DropDown options={ options } onChange={(selected) => console.log(selected) }/>
-			{ children }
-		</div>);
+		return (<Layout>
+			<Header>
+				<Menu
+					style={{ lineHeight: '64px' }}
+					theme="dark"
+					mode="horizontal"
+				>
+					<Menu.Item key="file">
+						<Link to="/file" style={ { fontSize: 20+"px"} }><Icon type="hdd" />文件</Link>
+					</Menu.Item>
+				</Menu>
+			</Header>
+			<Content>
+				{ children }
+			</Content>
+		</Layout>);
 	}
 }
 export default App;

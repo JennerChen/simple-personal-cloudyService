@@ -1,5 +1,4 @@
-import Radium from 'radium';
-
+const Radium = require('radium');
 function ConfiguredRadium(component) {
 	return Radium({
 		plugins:[

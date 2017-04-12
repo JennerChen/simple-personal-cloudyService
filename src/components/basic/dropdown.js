@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Radium from 'radium';
-import cssUtil from '../../css/cssUtil';
+const Radium = require('radium');
+
 const _style = {
 	container: {
 		position: 'relative',
@@ -17,22 +17,39 @@ const _style = {
 		display: 'none',
 		position: 'absolute',
 		backgroundColor: '#f9f9f9',
-		padding: '4px 5px',
+		padding: '0',
+		margin: '3px 0 0 0',
+		fontSize: '14px',
+		width:'100%',
 		zIndex: 1
+	},
+	option: {
+		padding:"0 5px",
+		cursor: 'pointer',
+		lineHeight:1.5,
+		color:'#333',
+		':hover':{
+			backgroundColor:''
+		}
 	},
 	open: {
 		display: 'block'
 	}
 };
-
+@Radium
 class SelectItem extends React.Component {
 	render() {
-		const {children, container, data} = this.props;
-		return <li className={ data._selected ? 'active' : '' } onClick={ (e) => {
-			container.selectItem(this.props.data, e);
-		} }> { children } </li>
+		const {children, container, data, style} = this.props;
+		return <li className={ data._selected ? 'active' : '' } style={ [_style.option, style.option] }
+		           onClick={ (e) => {
+			           container.selectItem(this.props.data, e);
+		           } }> { children } </li>
 	}
 }
+
+SelectItem.defaultProps = {
+	style: {}
+};
 
 @Radium
 class DropDown extends React.Component {
@@ -85,14 +102,22 @@ class DropDown extends React.Component {
 		const iconClass = "iconfont icon-" + (open ? "xiangxia1" : "xiangshang1");
 		const contentList = options.map((opt, i) => {
 			let optData = Object.assign({}, opt, {_selected: i === selected, _index: i});
-			return <SelectItem key={ i } data={ optData }
+			return <SelectItem key={ i } data={ optData } style={ style.option }
 			                   container={ this }> { opt.text } </SelectItem>;
 		});
-		return <div style={ [_style.container, style.container] }>
+		return <div className="dropdown" style={ [_style.container, style.container] }>
+			<Radium.Style
+				scopeSelector=".dropdown"
+			    rules={
+					{
+						backgroundColor:'pink'
+					}
+				}
+			/>
 			<span style={ [_style.label, style.label] } onClick={ this.toggleDropDown }> { options[selected].text }<i
 				className={ iconClass }/>
 			</span>
-			<ul style={ [cssUtil.ulReset, _style.content, open ? _style.open : {}] }>
+			<ul style={ [_style.content, open ? _style.open : {}] }>
 				{ contentList }
 			</ul>
 		</div>

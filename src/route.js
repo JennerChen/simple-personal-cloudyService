@@ -10,7 +10,7 @@ import appStore from './store';
 import App from './containers/app';
 import Login from './containers/user/login';
 import CloudDisk from './components/cloudDisk/cloudDisk';
-import CloudFiles from './containers/cloudDisk/fileList';
+import CloudFiles from './containers/cloudDisk/cloudFiles';
 injectTapEventPlugin();
 
 const requireAuth = (nextState, replace) => {
