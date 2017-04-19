@@ -1,7 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
-import {Card, Icon, Button, Progress, Input, Modal} from 'antd';
+import {Card, Icon, Button, Progress, Input, Modal, Radio} from 'antd';
 import FileList from '../../containers/cloudDisk/fileList';
 import plupload from 'plupload';
 import utils from '../../utils/index';
@@ -80,9 +80,9 @@ const style = {
 		width: "200px"
 	},
 	uploadBtn: {
-		margin: "0 0 0 10px"
+		margin: "0 8px 0 10px"
 	},
-	addDirBtn:{
+	addDirBtn: {
 		margin: "0 0 0 10px"
 	},
 	uploadSpan: {
@@ -112,6 +112,15 @@ const style = {
 	},
 	renameModal: {
 		textAlign: "center"
+	},
+	navLink: {
+		cursor: 'pointer',
+		marginRight: "5px",
+		padding: "0 2px",
+		":hover": {
+			textDecoration: 'underline',
+			background: '#eee'
+		}
 	}
 };
 @Radium
@@ -191,7 +200,8 @@ class UploadBox extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			files: []
+			files: [],
+			uploadToRoot: false
 		}
 	}
 	
@@ -217,11 +227,12 @@ class UploadBox extends React.Component {
 					});
 				},
 				BeforeUpload(up, file){
-					let {signature} = that.props;
+					let {signature, dir} = that.props;
+					const {uploadToRoot} = that.state;
 					up.setOption({
 						url: signature.host,
 						multipart_params: {
-							key: file.name,
+							key: uploadToRoot ? file.name : (dir + file.name),
 							success_action_status: '200',
 							OSSAccessKeyId: signature.accessid,
 							signature: signature.signature,
@@ -233,8 +244,9 @@ class UploadBox extends React.Component {
 				},
 				UploadProgress: updateFiles,
 				FileUploaded: () => {
+					let {dir} = that.props;
 					updateFiles();
-					refreshFiles();
+					refreshFiles(dir);
 				},
 				Error(up, err){
 					const {code, message, file} = err;
@@ -278,10 +290,14 @@ class UploadBox extends React.Component {
 			this.uploader.start();
 		}
 	};
-	addDirFold = ()=>{
-	
+	changeUploadRoot = (e) => {
+		this.setState({
+			uploadToRoot: e.target.value
+		})
 	};
+	
 	render() {
+		const {uploadToRoot} = this.state;
 		const uploadFiles = this.state.files.map((f, i) => {
 			return <UploadFile key={ f.id } file={ f} updateFileInfo={ this.updateFileInfo }
 			                   removeFile={ this.removeFile }/>
@@ -291,7 +307,10 @@ class UploadBox extends React.Component {
 		}} style={ style.uploadWrap }>
 			<Button className="addFile">添加文件</Button>
 			<Button type="primary" onClick={ this.uploadFileAll } style={ style.uploadBtn }> 上传 </Button>
-			{/*<Button onClick={ this.addDirFold } style={ style.addDirBtn }>添加目录</Button>*/}
+			<Radio.Group onChange={this.changeUploadRoot} value={ uploadToRoot }>
+				<Radio value={true}>根目录</Radio>
+				<Radio value={false}>当前目录</Radio>
+			</Radio.Group>
 			{ uploadFiles }
 		</div>
 	}
@@ -335,18 +354,29 @@ class CloudFiles extends React.Component {
 	render() {
 // 		const dirs = this.props.location.query.dir || [];
 		const {files, fetchingFile, signature, getSignature, getFiles, dir} = this.props;
-// 		const dirLinks = [].concat(dirs).map((dirName, index) => {
-// 			return <FoldLink key={ index } location={ {pathname: "/files", query: {dir: dirs.slice(0, index + 1)}}}
-// 			                 name={ dirName } currentFold={ index === (dirs.length - 1) }/>
-// 		});
+		let navLinks = [{
+				display: "root/",
+				dir: "/"
+			}],
+			navLocation = "";
+		dir.split("").forEach(function (l) {
+			if (l === "/" && navLocation.length >= 1) {
+				navLinks.push({
+					display: navLocation.split("/").pop() + "/",
+					dir: navLocation + "/"
+				});
+			} else {
+				navLocation += l;
+			}
+		});
+		navLinks = navLinks.map(function (l, i) {
+			return <span style={ style.navLink } onClick={ getFiles.bind(null, l.dir) } key={ i }> { l.display } </span>
+		});
 		return <RCard style={ [style.base] }>
 			<div style={ style.foldLink.wrap }>
-				目录：{ dir }
-				{/*{ dirLinks }*/}
+				目录：{ navLinks }
 			</div>
-			<UploadBox signature={ signature } getSignature={ getSignature } refreshFiles={ () => {
-				getFiles()
-			} }/>
+			<UploadBox signature={ signature } getSignature={ getSignature } refreshFiles={ getFiles } dir={ dir }/>
 			<div style={ [style.fileList]}>
 				{ fetchingFile ? <LoadingWrap /> : <FileList /> }
 			</div>

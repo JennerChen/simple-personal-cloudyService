@@ -123,6 +123,7 @@ class FileItem extends React.Component {
 		const {file} = this.props;
 		const {downloadUrl} = file;
 		const {clicked} = this.state;
+		let displayFileName = file.name.split("/").pop();
 		return <div style={ [style.wrap] } onClick={ () => {
 			this.setState({
 				clicked: !clicked
@@ -133,7 +134,7 @@ class FileItem extends React.Component {
 		} }>
 			<i style={ style.fileIcon } className="iconfont icon-file"/>
 			<Tooltip title={ file.name} placement="right">
-				<div style={ style.filename }>{ file.name }</div>
+				<div style={ style.filename }>{ displayFileName}</div>
 			</Tooltip>
 			{clicked ?
 				<FileActions url={ downloadUrl } deleteFile={ this.deleteFile } download={ this.download }/> : ""  }

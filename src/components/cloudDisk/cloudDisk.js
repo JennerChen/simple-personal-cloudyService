@@ -56,9 +56,6 @@ const style = {
 @Radium
 class CloudDisk extends React.Component {
 	componentDidMount() {
-// 		this.video.addEventListener('mouseenter', () => {
-// 			this.video.play();
-// 		});
 	}
 	
 	render() {
@@ -67,23 +64,24 @@ class CloudDisk extends React.Component {
 				<Col xs={24} sm={12} md={8} lg={8} xl={6} style={ { padding: "5px 5px"} }>
 					<Card>
 						<RLink to="/file/files" style={ [style.selectionTitle] }>文件流</RLink>
-						<Carousel autoplay>
-							<div style={ [style.fileStreamSlide ]}><h3>1</h3></div>
-							<div style={ [style.fileStreamSlide ]}><h3>2</h3></div>
-							<div style={ [style.fileStreamSlide ]}><h3>3</h3></div>
-							<div style={ [style.fileStreamSlide ]}><h3>4</h3></div>
-						</Carousel>
+						<img key="files" style={ [style.picStyle] } src="/img/files.jpg"/>
 					</Card>
 				</Col>
 				<Col xs={24} sm={12} md={8} lg={8} xl={6} style={ { padding: "5px 5px"} }>
 					<Card>
-						<RLink to="/file/photos" style={ [style.selectionTitle] }>照片流</RLink>
+						<span style={ [style.selectionTitle] } onClick={ ()=>{
+							alert("敬请期待");
+						}}> 照片流</span>
+						{/*<RLink to="/file/photos" style={ [style.selectionTitle] }>照片流</RLink>*/}
 						<img key="photos" style={ [style.picStyle] } src="/img/photos.jpg"/>
 					</Card>
 				</Col>
 				<Col xs={24} sm={12} md={8} lg={8} xl={6} style={ { padding: "5px 5px"} }>
 					<Card>
-						<RLink to="/file/films" style={ [style.selectionTitle] }>视频流</RLink>
+						<span style={ [style.selectionTitle] } onClick={ ()=>{
+							alert("敬请期待");
+						}}> 照片流</span>
+						{/*<RLink to="/file/films" style={ [style.selectionTitle] }>视频流</RLink>*/}
 						<video ref={ video => this.video = video } style={ [style.videoStyle]}
 						       src="/videos/macbookpro2016_test.mp4" controls="controls">
 							您的浏览器不支持 video 标签。

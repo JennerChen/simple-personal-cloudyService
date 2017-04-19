@@ -8,12 +8,9 @@
     "webpack": "webpack --progress",
     "server": "node ./server/server.js",
     "devServer": "nodemon --debug ./server/server.js",
-    "build-app": "webpack --optimize-minimize --progress --define process.env.NODE_ENV=\"'production'\""
+    "build-app": "webpack --progress --config webpack.prod.config.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JennerChen/simple-personal-cloudyService.git"
-  },
+  "repository": "git+https://github.com/JennerChen/simple-personal-cloudyService.git",
   "author": "张庆",
   "license": "MIT",
   "bugs": {
@@ -51,6 +48,7 @@
     "antd": "^2.8.2",
     "autoprefixer": "^6.7.6",
     "axios": "^0.15.3",
+    "babel-eslint": "^7.2.2",
     "babel-plugin-import": "^1.1.1",
     "babel-plugin-transform-object-assign": "^6.22.0",
     "body-parser": "^1.16.1",

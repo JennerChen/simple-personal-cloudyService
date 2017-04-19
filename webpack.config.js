@@ -9,11 +9,13 @@ module.exports = {
 		filename: '[name].js',
 // 		filename:'[chunkhash].[name].js',
 		path: path.resolve(__dirname,'static/js'),
-// 		filename: './static/js/bundle.js'
 	},
 	watch: true,
 	devtool: "inline-source-map",
-	plugins: [
+	plugins:[
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify('development')
+		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: ["vendor","manifest"],
 			minChunks: function (module) {
@@ -28,7 +30,7 @@ module.exports = {
 			{
 				test: [/.jsx?$/, /.js?$/],
 				loader: 'babel-loader',
-				exclude: 'node_modules',
+				exclude: '/node_modules',
 				query: {
 					presets: [
 						["es2015", { "loose": true }],
