@@ -232,7 +232,7 @@ class UploadBox extends React.Component {
 					up.setOption({
 						url: signature.host,
 						multipart_params: {
-							key: uploadToRoot ? file.name : (dir + file.name),
+							key: uploadToRoot || dir === "/" ? file.name : (dir + file.name),
 							success_action_status: '200',
 							OSSAccessKeyId: signature.accessid,
 							signature: signature.signature,

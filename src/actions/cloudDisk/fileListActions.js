@@ -67,7 +67,9 @@ export const getDownloadUrl = (fileKey, etag) => {
 
 export const deleteFile = (fileKey) => {
 	return (dispatch) => {
-		axios.delete('/api/file/' + fileKey).then((res) => {
+		axios.delete('/api/file/',{
+			data:{name:fileKey}
+		}).then((res) => {
 			dispatch(deleteFileComplete(fileKey));
 		}).catch(() => {
 			console.log('error');

@@ -40,7 +40,7 @@ router.get(["/files", "/files/:dir"], function (req, res) {
 		console.log(err);
 	});
 });
-router.post("/signatureUrl", function (req,res) {
+router.post("/signatureUrl", function (req, res) {
 	const fileName = req.body.name;
 	const url = client.signatureUrl(fileName);
 	res.send({
@@ -54,9 +54,8 @@ router.get("/signatureUrl/:filename", function (req, res) {
 		url: url
 	})
 });
-
-router.delete("/:filename", function (req, res) {
-	const filename = req.params.filename;
+router.delete("/*", function (req, res) {
+	const filename = req.body.name;
 	co(function*() {
 		const result = yield client.delete(filename);
 		res.send({
@@ -71,6 +70,22 @@ router.delete("/:filename", function (req, res) {
 		})
 	});
 });
+// router.delete("/:filename", function (req, res) {
+// 	const filename = req.params.filename;
+// 	co(function*() {
+// 		const result = yield client.delete(filename);
+// 		res.send({
+// 			status: "ok",
+// 			filename: filename,
+// 			result: result
+// 		})
+// 	}).catch(function (err) {
+// 		res.send({
+// 			status: "fail",
+// 			err: err
+// 		})
+// 	});
+// });
 /**
  * 获取 oss 临时上传权限, 根据 oss 要求的参数伪装生成参数
  */
@@ -110,11 +125,11 @@ router.post("/createDir", function (req, res) {
 		});
 		res.send({
 			result,
-			status:'ok'
+			status: 'ok'
 		});
 	}).catch(function (err) {
 		res.send({
-			err:err
+			err: err
 		})
 	});
 	
