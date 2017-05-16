@@ -8,6 +8,7 @@ import Radium from 'radium';
 import appStore from './store';
 
 import App from './containers/app';
+import CV from './components/cv/cv';
 import Login from './containers/user/login';
 import CloudDisk from './components/cloudDisk/cloudDisk';
 import CloudFiles from './containers/cloudDisk/cloudFiles';
@@ -29,6 +30,7 @@ export default () => {
 			<Provider store={ appStore }>
 				<Router history={ browserHistory }>
 					<Route path="/login" component={ Login } onEnter={ enterLogin }/>
+					<Route path="/cv" component={ CV }/>
 					<Route path="/" component={ App } onEnter={ requireAuth }>
 						<IndexRoute component={ CloudDisk }/>
 						<Route path="file" component={ CloudDisk }>
