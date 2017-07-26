@@ -34,3 +34,7 @@ jspm_packages
 .node_repl_history
 .idea/
 static/js/
+static/videos/
+
+# video files
+*.mp4
