@@ -7,11 +7,11 @@
 		}
 	},
 	"plugins": [
-		"react"
+//		"react"
 	],
 	"parser": "babel-eslint",
 	"rules": {
-
+		"no-console":"error"
 	},
 	"env": {
 		"browser": true,

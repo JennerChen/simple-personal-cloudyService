@@ -1,26 +1,9 @@
 {
 	"plugins": [
-		"transform-object-assign",
-		"transform-regenerator",
-		"add-module-exports",
-		"transform-es2015-modules-commonjs",
-		"transform-decorators-legacy",
-		[
-			"import",
-			{
-				"libraryName": "antd",
-				"style": true
-			}
-		]
+
 	],
 	"presets": [
-		[
-			"es2015",
-			{
-				"loose": true
-			}
-		],
-		"stage-1",
+		["env"],
 		"react"
 	]
 }
