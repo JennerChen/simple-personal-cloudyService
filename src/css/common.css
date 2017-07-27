@@ -1,0 +1,28 @@
+*{
+	box-sizing: border-box;
+}
+html{
+	height: 100%;
+}
+body{
+	min-height: 100%;
+	color: #34495e;
+	background-color: #eaedf1;
+	margin:0;
+	font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+
+.clearfix:after {
+	clear: both;
+}

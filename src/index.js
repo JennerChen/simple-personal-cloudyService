@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDom from "react-dom";
 import axios from 'axios';
+import './css/common.css';
+import {BrowserRouter, Route, Link, NavLink, Switch} from 'react-router-dom';
+import Login from './pages/login/login';
 // import appStore from './store';
 // import {userLogged} from './actions/userActions';
 // import Router from './route';
@@ -16,7 +19,18 @@ import axios from 'axios';
 //
 //
 
+class App extends React.Component {
+	render() {
+		return <BrowserRouter>
+			<div>
+				<Switch>
+					<Route path="/login" exact component={ Login }/>
+				</Switch>
+			</div>
+		</BrowserRouter>
+	}
+}
+
 ReactDom.render(
-	<div>it works</div>
-	, document.getElementById('root')
+	<App/>, document.getElementById('root')
 );

@@ -1,6 +1,6 @@
 {
-  "region": "Your Region",
-  "accessKeyId": "AccessKey",
-  "accessKeySecret": "Access Secret",
-  "bucket": "Your Bucket"
+	"region": "oss-cn-hangzhou",
+	"accessKeyId": "jXpP6UhtfDnWar95",
+	"accessKeySecret": "WaH6P8r03tn0PifBpd3Qo5hJ5CLD4X",
+	"bucket": "aliossdemo"
 }

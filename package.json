@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"webpack": "webpack --progress",
+		"dev": "webpack --progress",
 		"server": "cross-env NODE_ENV=production node ./server/index.js",
 		"devServer": "nodemon --inspect ./server/index.js",
 		"build-app": "webpack --progress --config webpack.prod.config.js"
@@ -24,13 +24,16 @@
 	},
 	"dependencies": {
 		"ali-oss": "^4.8.0",
+		"antd": "^2.12.2",
 		"axios": "^0.16.2",
 		"babel-core": "^6.25.0",
 		"babel-loader": "^7.1.1",
+		"babel-plugin-import": "^1.2.1",
 		"babel-polyfill": "^6.23.0",
 		"babel-preset-env": "^1.6.0",
 		"babel-preset-react": "^6.24.1",
 		"babel-register": "^6.24.1",
+		"co": "^4.6.0",
 		"cross-env": "^5.0.1",
 		"css-loader": "^0.28.4",
 		"koa": "^2.3.0",
@@ -45,6 +48,8 @@
 		"mobx": "^3.2.1",
 		"react": "^15.6.1",
 		"react-dom": "^15.6.1",
+		"react-router-dom": "^4.1.2",
+		"style-loader": "^0.18.2",
 		"styled-components": "^2.1.1",
 		"webpack": "^3.4.1",
 		"webpack-manifest-plugin": "^1.2.1"
