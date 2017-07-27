@@ -4,6 +4,7 @@
 	],
 	"presets": [
 		["env"],
+		"stage-1",
 		"react"
 	]
 }

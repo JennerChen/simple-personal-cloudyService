@@ -1,6 +1,21 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-//https://codepen.io/khadkamhn/pen/ZGvPLo
+import { CSSTransitionGroup, TransitionGroup  } from 'react-transition-group'
+
+const rotate360 = keyframes`
+	0%{
+		transform: rotateY(0);
+	}
+	
+	50%{
+		transform:rotateY(180deg)
+	}
+	
+	100%{
+		transform:rotateY(360deg)
+	}
+	
+`;
 const LoginWrap = styled.div`
     width: 100%;
     max-width: 525px;
@@ -41,12 +56,6 @@ const SelectionLabel = styled.div`
 const LoginForm = styled.div`
     min-height: 345px;
     position: relative;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    transform:rotateY(180deg);
-	transition:all .4s linear;
 `;
 
 const FormLabel = styled.span`
@@ -128,46 +137,14 @@ const LoginBtn = styled.button`
     display: block;
     outline:none;
 `;
-
-export default class Login extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isSignin: true,
-			rememberMe: true
-		};
-	}
+class LoginModal extends React.Component{
 	
+	state = {
+		rememberMe: true
+	};
 	
-	
-	renderLoginForm(){
+	render(){
 		const { rememberMe } = this.state;
-		return <LoginForm>
-			<FormLabel>用户名</FormLabel>
-			<FormInput type="text" />
-			
-			<FormLabel>密码</FormLabel>
-			<FormInput type="password"/>
-			
-			
-			<label
-				onClick={ ()=>this.setState({
-				rememberMe: !rememberMe
-			})  }
-				style={ {
-					lineHeight:"45px"
-				} }
-			>
-				<RememberMeIcon rememberMe={ rememberMe }/>
-				<RememberMeSpan rememberMe={ rememberMe }>保持登录</RememberMeSpan>
-			</label>
-			
-			<LoginBtn>登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</LoginBtn>
-			<hr style={ { height:2,margin:"60px 0 50px 0",backgroundColor:'rgba(255,255,255,.2)', border:'none'} }/>
-		</LoginForm>
-	}
-	
-	renderSignupForm(){
 		return <LoginForm>
 			<FormLabel>用户名</FormLabel>
 			<FormInput type="text" />
@@ -192,8 +169,44 @@ export default class Login extends React.Component {
 			<hr style={ { height:2,margin:"60px 0 50px 0",backgroundColor:'rgba(255,255,255,.2)', border:'none'} }/>
 		</LoginForm>
 	}
+}
+
+class SignupModal extends React.Component{
+	render(){
+		return <LoginForm>
+			<FormLabel>用户名</FormLabel>
+			<FormInput type="text" />
+			
+			<FormLabel>密码</FormLabel>
+			<FormInput type="password"/>
+			
+			<FormLabel>重复密码</FormLabel>
+			<FormInput type="password" style={ {marginBottom:25} }/>
+			
+			<LoginBtn>注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</LoginBtn>
+			<hr style={ { height:2,margin:"60px 0 50px 0",backgroundColor:'rgba(255,255,255,.2)', border:'none'} }/>
+		</LoginForm>
+	}
+}
+
+export default class Login extends React.Component {
+	state = {
+		rotating: false,
+		isSignin: true,
+		
+	};
+	
+	constructor(props) {
+		super(props);
+	}
+	
+	animateForm(){
+	
+	}
+	
+// 	rotateY(180deg)
 	render() {
-		const {  isSignin } = this.state;
+		const {  isSignin, rotating } = this.state;
 		return <LoginWrap>
 			<LoginSelection>
 				<SelectionLabel
@@ -208,9 +221,25 @@ export default class Login extends React.Component {
 						isSignin: false
 					})}
 				>注&nbsp;&nbsp;&nbsp;&nbsp;册</SelectionLabel>
+				<CSSTransitionGroup
+					transitionName={ {
+						enter: rotate360,
+						enterActive: rotate360,
+						leave: rotate360,
+						leaveActive: rotate360,
+						appear: rotate360,
+						appearActive: rotate360
+					} }
+					transitionAppear={true}
+					transitionAppearTimeout={500}
+					transitionEnter={false}
+					transitionLeave={false}
+					
+				>
+					{ isSignin ? <LoginModal/> :  <SignupModal/> }
+				</CSSTransitionGroup>
 				
-				{ isSignin ? this.renderLoginForm() : this.renderSignupForm() }
-			
+				
 			</LoginSelection>
 		</LoginWrap>
 	}
