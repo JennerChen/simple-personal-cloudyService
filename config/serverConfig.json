@@ -1,16 +1,29 @@
 {
-  "port": 4567,
-  "session":{
-    "secret":"OxTNiiS9PjlWIDD1KEgU71ZjZQHNxh",
-    "cookie":{
-      "maxAge":86400000
-    },
-    "saveUninitialized":false,
-    "resave":true
-  },
-  "user":{
-    "name":"js8zq332",
-    "nickname":"天山鸟飞绝",
-    "password":"js8zq596"
-  }
+	"port": 4567,
+	"session": {
+		"secret": "OxTNiiS9PjlWIDD1KEgU71ZjZQHNxh",
+		"cookie": {
+			"maxAge": 86400000
+		},
+		"saveUninitialized": false,
+		"resave": true
+	},
+	"user": {
+		"name": "js8zq332",
+		"nickname": "天山鸟飞绝",
+		"password": "js8zq596"
+	},
+	"db": {
+		"databaseName": "cloud-service",
+		"username": "root",
+		"password": "123456",
+		"host": "localhost",
+		"port": 3306,
+		"dialect": "mysql",
+		"pool": {
+			"max": 5,
+			"min": 0,
+			"idle": 10000
+		}
+	}
 }

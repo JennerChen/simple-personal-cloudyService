@@ -6,7 +6,7 @@ import bodyParser from 'koa-body';
 import session from 'koa-session';
 import path from 'path';
 import log4js from 'koa-log4';
-
+import Database from './models/index';
 import errorHandler from './middleware/errorHandler';
 import returnIndexPage from './middleware/returnIndexPage';
 import load from './routes';
@@ -22,6 +22,10 @@ if (app.isProduction) {
 } else {
 	app.use(logger());
 }
+/**
+ * @type { Database }
+ */
+app.db = new Database();
 
 app.use(/**@type { Application.Middleware }*/ staticFiles(path.resolve('static')));
 
