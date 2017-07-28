@@ -1,7 +1,12 @@
 class UserController {
 	current(ctx, next) {
-		console.log('--');
 		ctx.body = "abc"
+	}
+	
+	async login(ctx, next) {
+		ctx.body = {
+			user: ctx.request.body
+		}
 	}
 }
 

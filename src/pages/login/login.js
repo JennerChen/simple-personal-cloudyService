@@ -1,21 +1,8 @@
 import React from 'react';
-import styled, {keyframes} from 'styled-components';
-import { CSSTransitionGroup, TransitionGroup  } from 'react-transition-group'
-
-const rotate360 = keyframes`
-	0%{
-		transform: rotateY(0);
-	}
-	
-	50%{
-		transform:rotateY(180deg)
-	}
-	
-	100%{
-		transform:rotateY(360deg)
-	}
-	
-`;
+import styled from 'styled-components';
+import {inject, observer} from 'mobx-react';
+import {Motion, spring} from 'react-motion';
+import { Spin  } from 'antd';
 const LoginWrap = styled.div`
     width: 100%;
     max-width: 525px;
@@ -47,6 +34,7 @@ const SelectionLabel = styled.div`
     text-transform: uppercase;
     color: #6a6f8c;
     transition:all .5s;
+    cursor:default;
     &.active{
         color: #fff;
         border-color: #1161ee;
@@ -56,6 +44,7 @@ const SelectionLabel = styled.div`
 const LoginForm = styled.div`
     min-height: 345px;
     position: relative;
+    backface-visibility:hidden;
 `;
 
 const FormLabel = styled.span`
@@ -69,8 +58,9 @@ const FormLabel = styled.span`
 
 const FormInput = styled.input`
     border: none;
-    padding: 15px 20px;
+    padding: 10px 20px;
     border-radius: 25px;
+    font-size:20px;
     background-color: rgba(255,255,255,.1);
     outline:none;
     width: 100%;
@@ -136,110 +126,97 @@ const LoginBtn = styled.button`
     color: #fff;
     display: block;
     outline:none;
+    font-size:24px;
 `;
-class LoginModal extends React.Component{
-	
-	state = {
-		rememberMe: true
-	};
-	
-	render(){
-		const { rememberMe } = this.state;
+
+@inject("store")
+@observer
+class LoginModal extends React.Component {
+	render() {
+		const {userStore} = this.props.store;
+		const {rememberMe, loginForm} = userStore;
+		
 		return <LoginForm>
 			<FormLabel>用户名</FormLabel>
-			<FormInput type="text" />
+			<FormInput
+				type="text"
+				value={loginForm.username}
+				onChange={e => loginForm.username = e.target.value}
+			/>
 			
 			<FormLabel>密码</FormLabel>
-			<FormInput type="password"/>
+			<FormInput
+				type="password"
+				value={loginForm.password}
+				onChange={e => loginForm.password = e.target.value}
+			/>
 			
 			
 			<label
-				onClick={ ()=>this.setState({
-					rememberMe: !rememberMe
-				})  }
-				style={ {
-					lineHeight:"45px"
-				} }
+				onClick={userStore.toggleRememberMe}
+				style={{
+					lineHeight: "45px"
+				}}
 			>
-				<RememberMeIcon rememberMe={ rememberMe }/>
-				<RememberMeSpan rememberMe={ rememberMe }>保持登录</RememberMeSpan>
+				<RememberMeIcon rememberMe={rememberMe}/>
+				<RememberMeSpan rememberMe={rememberMe}>保持登录</RememberMeSpan>
 			</label>
 			
-			<LoginBtn>登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</LoginBtn>
-			<hr style={ { height:2,margin:"60px 0 50px 0",backgroundColor:'rgba(255,255,255,.2)', border:'none'} }/>
+			<LoginBtn
+				active={ userStore.enableLoginBtn && !userStore.isSigning}
+				onClick={ userStore.login }
+			>
+				{ userStore.isSigning ? <Spin tip="登录中"/> : <span>登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</span> }
+			</LoginBtn>
+			<hr style={{height: 2, margin: "60px 0 50px 0", backgroundColor: 'rgba(255,255,255,.2)', border: 'none'}}/>
 		</LoginForm>
 	}
 }
 
-class SignupModal extends React.Component{
-	render(){
+class SignupModal extends React.Component {
+	render() {
 		return <LoginForm>
 			<FormLabel>用户名</FormLabel>
-			<FormInput type="text" />
+			<FormInput type="text"/>
 			
 			<FormLabel>密码</FormLabel>
 			<FormInput type="password"/>
 			
 			<FormLabel>重复密码</FormLabel>
-			<FormInput type="password" style={ {marginBottom:25} }/>
+			<FormInput type="password" style={{marginBottom: 25}}/>
 			
 			<LoginBtn>注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</LoginBtn>
-			<hr style={ { height:2,margin:"60px 0 50px 0",backgroundColor:'rgba(255,255,255,.2)', border:'none'} }/>
+			<hr style={{height: 2, margin: "60px 0 50px 0", backgroundColor: 'rgba(255,255,255,.2)', border: 'none'}}/>
 		</LoginForm>
 	}
 }
 
+@inject("store")
+@observer
 export default class Login extends React.Component {
-	state = {
-		rotating: false,
-		isSignin: true,
-		
-	};
-	
-	constructor(props) {
-		super(props);
-	}
-	
-	animateForm(){
-	
-	}
-	
-// 	rotateY(180deg)
 	render() {
-		const {  isSignin, rotating } = this.state;
+		const {userStore} = this.props.store;
+		const {displayFormName} = userStore;
 		return <LoginWrap>
 			<LoginSelection>
 				<SelectionLabel
-					className={isSignin ? 'active' : ''}
-					onClick={() => this.setState({
-						isSignin: true
-					})}
+					className={displayFormName === 'login' ? 'active' : ''}
+					onClick={() => userStore.showLoginForm()}
 				>登&nbsp;&nbsp;&nbsp;&nbsp;录</SelectionLabel>
 				<SelectionLabel
-					className={!isSignin ? 'active' : ''}
-					onClick={() => this.setState({
-						isSignin: false
-					})}
+					className={displayFormName === 'signup' ? 'active' : ''}
+					onClick={() => userStore.showSignupForm()}
 				>注&nbsp;&nbsp;&nbsp;&nbsp;册</SelectionLabel>
-				<CSSTransitionGroup
-					transitionName={ {
-						enter: rotate360,
-						enterActive: rotate360,
-						leave: rotate360,
-						leaveActive: rotate360,
-						appear: rotate360,
-						appearActive: rotate360
-					} }
-					transitionAppear={true}
-					transitionAppearTimeout={500}
-					transitionEnter={false}
-					transitionLeave={false}
-					
+				<Motion
+					defaultStyle={{rotate: 0}}
+					style={{
+						rotate: spring(displayFormName === 'login' ? 0 : 360)
+					}}
 				>
-					{ isSignin ? <LoginModal/> :  <SignupModal/> }
-				</CSSTransitionGroup>
-				
-				
+					{({rotate}) => <div ref={form => this.form = form} style={{transform: `rotateY(${({rotate}).rotate}deg)`}}>
+						{rotate >= 180 ? <SignupModal/> : <LoginModal/>}
+					</div>}
+				</Motion>
 			</LoginSelection>
 		</LoginWrap>
 	}

@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDom from "react-dom";
 import axios from 'axios';
+import { Provider } from 'mobx-react';
+import DevTools from 'mobx-react-devtools'
 import './css/common.css';
 import {BrowserRouter, Route, Link, NavLink, Switch} from 'react-router-dom';
+import rootStore from './stores';
 import Login from './pages/login/login';
+
 // import appStore from './store';
 // import {userLogged} from './actions/userActions';
 // import Router from './route';
@@ -19,18 +23,31 @@ import Login from './pages/login/login';
 //
 //
 
-class App extends React.Component {
-	render() {
-		return <BrowserRouter>
+//class App extends React.Component {
+//	render() {
+//		return <BrowserRouter>
+//			<Provider store={ rootStore }>
+//				<div>
+//					<Switch>
+//						<Route path="/login" exact component={ Login }/>
+//					</Switch>
+//					<DevTools />
+//				</div>
+//			</Provider>
+//
+//		</BrowserRouter>
+//	}
+//}
+ReactDom.render(
+	<BrowserRouter>
+		<Provider store={ rootStore }>
 			<div>
 				<Switch>
 					<Route path="/login" exact component={ Login }/>
 				</Switch>
+				<DevTools />
 			</div>
-		</BrowserRouter>
-	}
-}
-
-ReactDom.render(
-	<App/>, document.getElementById('root')
+		</Provider>
+	
+	</BrowserRouter>, document.getElementById('root')
 );
