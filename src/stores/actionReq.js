@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 class ActionReq {
 	/**
 	 * @type { AxiosInstance }
@@ -7,7 +6,9 @@ class ActionReq {
 	axios;
 	
 	constructor() {
-		this.axios = axios.create({});
+		this.axios = axios.create({
+			validateStatus:() => true // 不检查所有的 status code
+		});
 		this.axios.defaults.data = {};// 如果此参数不设置(默认为undefined), 那么axios不会修改 content-type
 		this.axios.interceptors.request.use(function (config) {
 			NProgress.start();

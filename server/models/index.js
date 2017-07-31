@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 const config = require('../../config/serverConfig.json');
+
 class Database {
 	constructor() {
 		this.sequelize = new Sequelize(
@@ -27,7 +28,7 @@ class Database {
 		this.sequelize
 			.authenticate()
 			.then(() => {
-				console.log('Connection has been established successfully.');
+				console.log('成功连接到 数据库!');
 			})
 			.catch(err => {
 				console.error('Unable to connect to the database:', err);

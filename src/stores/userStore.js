@@ -1,5 +1,5 @@
 import {observable, computed, action} from 'mobx'
-import { message } from 'antd';
+import {message} from 'antd';
 
 class UserStore {
 	
@@ -48,8 +48,11 @@ class UserStore {
 			rememberMe: this.rememberMe
 		}).then(action("getLoginInfo", (res) => {
 			this.isSigning = false;
-			message.error('账号或者密码错误！');
-			console.log(res.data);
+			if (!res.data.user) {
+				message.error(res.data.message);
+			} else {
+				this.user = res.data.user;
+			}
 		}))
 	}
 }

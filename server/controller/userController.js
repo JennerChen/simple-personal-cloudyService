@@ -4,9 +4,25 @@ class UserController {
 	}
 	
 	async login(ctx, next) {
-		ctx.body = {
-			user: ctx.request.body
+		const user = await ctx.app.db.models["User"].findOne({
+			where:{
+				username: ctx.request.body.username,
+				password: ctx.request.body.password
+			}
+		});
+		
+		if (user){
+			ctx.session.user = user;
+			ctx.body = {
+				user: user
+			}
+		}else{
+			ctx.body = {
+				message: "不正确的账号或者密码",
+				user:null
+			}
 		}
+		
 	}
 }
 

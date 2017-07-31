@@ -4,9 +4,13 @@ export default async function (ctx, next) {
 	} catch (err) {
 		ctx.status = err.status || 500;
 		ctx.type = 'json';
+		
 		ctx.body = {
-			message: ctx.app.isProduction ? err.message : err.stack,
+			message: err.message ,
 			status: ctx.status
 		};
+		if (!ctx.app.isProduction){
+			ctx.body.stack = err.stack
+		}
 	}
 }
