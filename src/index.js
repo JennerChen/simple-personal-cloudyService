@@ -7,6 +7,9 @@ import './css/common.css';
 import {BrowserRouter, Route, Link, NavLink, Switch} from 'react-router-dom';
 import rootStore from './stores';
 import Login from './pages/login/login';
+import Home from "./pages/main/home";
+import AuthRoute from "./components/authRoute";
+import CV from "./pages/cv/cv";
 
 // import appStore from './store';
 // import {userLogged} from './actions/userActions';
@@ -38,12 +41,16 @@ import Login from './pages/login/login';
 //		</BrowserRouter>
 //	}
 //}
+
+rootStore.userStore.checkUserIsSignin();
 ReactDom.render(
 	<BrowserRouter>
 		<Provider store={ rootStore }>
 			<div>
 				<Switch>
+					<AuthRoute Component={ Home } path="/" exact/>
 					<Route path="/login" exact component={ Login }/>
+					<Route path="/cv" exact component={ CV }/>
 				</Switch>
 				<DevTools />
 			</div>

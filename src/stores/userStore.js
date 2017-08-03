@@ -10,6 +10,8 @@ class UserStore {
 	rememberMe = true;
 	@observable
 	isSigning = false;
+	@observable
+	user = null;
 	
 	@observable
 	loginForm = {
@@ -36,6 +38,13 @@ class UserStore {
 	
 	toggleRememberMe = () => {
 		this.rememberMe = !this.rememberMe;
+	};
+	
+	@action
+	checkUserIsSignin = () => {
+		this.rootStore.actionReq.axios.get("/user/current").then( action("getCurrentUser", res => {
+			this.user = res.data.user;
+		}))
 	};
 	
 	@action

@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {inject, observer} from 'mobx-react';
 import {Motion, spring} from 'react-motion';
-import { Spin  } from 'antd';
+import {Spin} from 'antd';
+
 const LoginWrap = styled.div`
     width: 100%;
     max-width: 525px;
@@ -163,10 +164,10 @@ class LoginModal extends React.Component {
 			</label>
 			
 			<LoginBtn
-				active={ userStore.enableLoginBtn && !userStore.isSigning}
-				onClick={ userStore.login }
+				active={userStore.enableLoginBtn && !userStore.isSigning}
+				onClick={userStore.login}
 			>
-				{ userStore.isSigning ? <Spin tip="登录中"/> : <span>登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</span> }
+				{userStore.isSigning ? <Spin tip="登录中"/> : <span>登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</span>}
 			</LoginBtn>
 			<hr style={{height: 2, margin: "60px 0 50px 0", backgroundColor: 'rgba(255,255,255,.2)', border: 'none'}}/>
 		</LoginForm>
@@ -194,9 +195,37 @@ class SignupModal extends React.Component {
 @inject("store")
 @observer
 export default class Login extends React.Component {
+	checkUserIsSignedIn() {
+		const {
+			store: {
+				userStore: {
+					user
+				}
+			},
+			location: {
+				state: {
+					from
+				}
+			},
+			history
+		} = this.props;
+		
+		if (user) {
+			history.push(from ? from.pathname : "/");
+		}
+	}
+	
+	componentDidMount() {
+		this.checkUserIsSignedIn();
+	}
+	
+	componentDidUpdate() {
+		this.checkUserIsSignedIn();
+	}
+	
 	render() {
 		const {userStore} = this.props.store;
-		const {displayFormName} = userStore;
+		const {displayFormName, user} = userStore;
 		return <LoginWrap>
 			<LoginSelection>
 				<SelectionLabel
@@ -213,7 +242,8 @@ export default class Login extends React.Component {
 						rotate: spring(displayFormName === 'login' ? 0 : 360)
 					}}
 				>
-					{({rotate}) => <div ref={form => this.form = form} style={{transform: `rotateY(${({rotate}).rotate}deg)`}}>
+					{({rotate}) => <div ref={form => this.form = form}
+					                    style={{transform: `rotateY(${({rotate}).rotate}deg)`}}>
 						{rotate >= 180 ? <SignupModal/> : <LoginModal/>}
 					</div>}
 				</Motion>

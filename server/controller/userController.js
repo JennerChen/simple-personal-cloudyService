@@ -1,6 +1,15 @@
 class UserController {
 	current(ctx, next) {
-		ctx.body = "abc"
+		if (ctx.session.user){
+			ctx.body = {
+				user: ctx.session.user
+			}
+		}else{
+			ctx.body = {
+				user:null,
+				message:"没有登录"
+			}
+		}
 	}
 	
 	async login(ctx, next) {
