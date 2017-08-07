@@ -3802,6 +3802,10 @@ parseurl@^1.3.0:
   version "1.3.1"
   resolved "https://registry.npmjs.org/parseurl/-/parseurl-1.3.1.tgz#c8ab8c9223ba34888aa64a297b28853bec18da56"
 
+particles.js@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/particles.js/-/particles.js-2.0.0.tgz#21386c4328d6c7f96780a201e96eedfc09c736f6"
+
 passthrough-counter@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"

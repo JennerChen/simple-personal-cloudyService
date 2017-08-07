@@ -52,7 +52,7 @@ ReactDom.render(
 					<Route path="/login" exact component={ Login }/>
 					<Route path="/cv" exact component={ CV }/>
 				</Switch>
-				<DevTools />
+				{/*<DevTools />*/}
 			</div>
 		</Provider>
 	
