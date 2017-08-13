@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 class ActionReq {
 	/**
 	 * @type { AxiosInstance }

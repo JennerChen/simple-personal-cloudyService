@@ -2,6 +2,10 @@ import {observable, computed, action} from 'mobx'
 import {message} from 'antd';
 
 class UserStore {
+	@observable
+	cvLan = "en";
+	@observable
+	cvShowType = "all";
 	
 	@observable
 	displayFormName = "login";
